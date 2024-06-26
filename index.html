@@ -5,24 +5,53 @@
     <link href="output.css" rel="stylesheet">
 </head>
 <body>
-    <section class=" w-screen h-screen bg-red-300 flex flex-col  items-center ">
+    <section class=" w-screen h-screen bg-gradient-to-bl from-cyan-950 to-blue-500 flex flex-col  items-center text-yellow-50">
+    
+            <h1 class="text-3xl font-bold pt-3 text-orange-100">Weather App</h1>
+
+
         
-            <h1 class="text-2xl font-bold pt-3 text-orange-800">Your Weather</h1>
-
-            <div> </div>
-            <!-- Your weather content goes here -->
         <div class="flex flex-col items-center pt-5 ">
-            <div class="flex ">
-                <button>Your Weather </button>
-                <button>Search City </button>
+            <div class="flex mb-5">
+                <button class="border w-24 rounded p-1 font-semibold mr-5 hover:scale-105 transition-all">My city </button>
+                <button  class="border rounded p-1 font-semibold ml-5 hover:scale-105 transition-all ">Search City </button>
             </div>
-
+            
+                <input type="text" placeholder=" Type city name" class=" rounded border text-black text-center p-1">
+            
+            <div class="mt-8 text-center text-xl font-semibold ">
+                <p id="city_name">City Name</p>
+                <p id="type_of_weather">Type of weather</p>
+                <p id="temperature" class="border mt-2 rounded">23.45 C</p>
+            </div>
+            <div class="flex mt-5 space-x-4 ">
+                <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
+                    <i class="fa-solid fa-wind"></i>
+                    <p>Windspeed</p>
+                    <p>5 m/s</p>
+                </div>
+                <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
+                    <i class="fa-solid fa-droplet"></i>
+                    <p>Humidity</p>
+                    <p>50%</p>
+                </div>
+                <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
+                    <i class="fa-solid fa-cloud"></i>
+                    <p>Clouds</p>
+                    <p>40%</p>
+                </div>
+            </div>
+        </div>
+        <p class="text-center font-bold text-2xl mt-5">Time</p>
+        <div class="w-44 h-10 backdrop-blur bg-violet-950/30 mt-2 rounded flex items-center justify-center font-bold text-xl space-x-3">
+            <p id="hours">00</p><span>:</span>
+            <p id="minutes">10</p><span>:</span>
+            <p id="seconds">20</p>
         </div>
         
     </section>
     
-    
-    
+    <script src="https://kit.fontawesome.com/862971273a.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>
