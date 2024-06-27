@@ -1,32 +1,3 @@
-// (https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric);
-
-// (https://api.openweathermap.org/data/2.5/weather?q=goa&appid=f54c9746eeb575b169255821f07ad9a9&units=metric);
-
-
-// try{
-//     let city="goa"
-//     const apiKey="f54c9746eeb575b169255821f07ad9a9";
-// async function fetchApi(){
-//     let data=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
-//     let result=await data.json();
-//     console.log(result)
-// }
-// }catch(err){
-// console.log(Error,err)
-// }
-
-// fetchApi();
-
-// function openSearch(){
-//     let searchBar=document.getElementById("searchbar")
-//     searchBar.classList.remove("hidden");
-// }
-// function closeSearch(){
-//     let searchBar=document.getElementById("searchbar")
-//     if(!searchBar.classList.contains("hidden")){
-//         searchBar.classList.add("hidden");
-//     } 
-// }
 function openModal(){
     let main_modal=document.getElementById("main_modal")
     if(main_modal.classList.contains("hidden")){
@@ -61,6 +32,139 @@ function closeSearch(){
         searchBar.classList.remove("scale-100");
     } 
 }
+
+let city_name=document.getElementById("city_name")
+let type_of_weather=document.getElementById("type_of_weather")
+let temperature=document.getElementById("temperature")
+let Windspeed=document.getElementById("Windspeed")
+let Humidity=document.getElementById("Humidity")
+let Clouds=document.getElementById("Clouds")
+
+let inputValue = "";
+
+function handleInput(event) {
+    inputValue = event.target.value;
+}
+
+function handleClick() {
+    if (inputValue === "") {
+        alert("Input value is empty!");
+    } else {
+        openModal()
+        // Do something with the input value
+        console.log(inputValue);
+        fetchapi(inputValue)
+    }
+}
+
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        if (inputValue === "") {
+            alert("Input value is empty!");
+        } else {
+            openModal()
+            // Do something with the input value
+            console.log(inputValue);
+            fetchapi(inputValue)
+        }
+    }
+}
+
+let input = document.getElementById("searchbar");
+let button = document.getElementById("search_icon");
+
+input.addEventListener("input", handleInput);
+button.addEventListener("click", handleClick);
+input.addEventListener("keypress", handleKeyPress);
+
+
+const apiKey = "f54c9746eeb575b169255821f07ad9a9";
+let city="delhi"
+
+async function fetchapi(present_city) {
+        try {
+            let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${present_city}&appid=${apiKey}&units=metric`);
+            if (!data.ok) {
+                throw new Error(`HTTP error! status: ${data.status}`);
+            }
+
+            let result = await data.json();
+            console.log(result);
+            console.log(result.main);
+
+            renderData(result)
+            // console.log(result)
+        } catch (err) {
+            console.log("Error:", err);
+        }
+}
+
+    // Call the async function
+    fetchapi(city);
+
+function renderData(result){
+    city_name.textContent=result.name;
+    type_of_weather.textContent=result.weather[0].main;
+    temperature.textContent=result.main.temp;
+    Windspeed.textContent=result.wind.speed;
+    Humidity.textContent=result.main.humidity;
+    Clouds.textContent=result.clouds.all;
+}
+
+
+
+
+function updateClock() {
+    let now = new Date();
+    let time_hour = now.getHours();
+    let time_minutes = now.getMinutes();
+    let time_seconds = now.getSeconds();
+
+    let hour = document.getElementById("hours");
+    let minutes = document.getElementById("minutes");
+    let seconds = document.getElementById("seconds");
+
+    hour.textContent = time_hour < 10 ? `0${time_hour}` : time_hour;
+    minutes.textContent = time_minutes < 10 ? `0${time_minutes}` : time_minutes;
+    seconds.textContent = time_seconds < 10 ? `0${time_seconds}` : time_seconds;
+}
+
+updateClock();
+
+// Update the clock every second
+setInterval(updateClock, 1000);
+
+
+
+// (https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric);
+
+// (https://api.openweathermap.org/data/2.5/weather?q=goa&appid=f54c9746eeb575b169255821f07ad9a9&units=metric);
+
+
+// try{
+//     let city="goa"
+//     const apiKey="f54c9746eeb575b169255821f07ad9a9";
+// async function fetchApi(){
+//     let data=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+//     let result=await data.json();
+//     console.log(result)
+// }
+// }catch(err){
+// console.log(Error,err)
+// }
+
+// fetchApi();
+
+// function openSearch(){
+//     let searchBar=document.getElementById("searchbar")
+//     searchBar.classList.remove("hidden");
+// }
+// function closeSearch(){
+//     let searchBar=document.getElementById("searchbar")
+//     if(!searchBar.classList.contains("hidden")){
+//         searchBar.classList.add("hidden");
+//     } 
+// }
 
 // let time_hour = new Date().getHours();
 // let time_minutes = new Date().getMinutes();
@@ -133,54 +237,3 @@ function closeSearch(){
 // }
 
 // setInterval(() => increase(time_seconds), 1000);
-
-function updateClock() {
-    let now = new Date();
-    let time_hour = now.getHours();
-    let time_minutes = now.getMinutes();
-    let time_seconds = now.getSeconds();
-
-    let hour = document.getElementById("hours");
-    let minutes = document.getElementById("minutes");
-    let seconds = document.getElementById("seconds");
-
-    hour.textContent = time_hour < 10 ? `0${time_hour}` : time_hour;
-    minutes.textContent = time_minutes < 10 ? `0${time_minutes}` : time_minutes;
-    seconds.textContent = time_seconds < 10 ? `0${time_seconds}` : time_seconds;
-}
-
-updateClock();
-
-// Update the clock every second
-setInterval(updateClock, 1000);
-
-let city_name=document.getElementById("city_name")
-let type_of_weather=document.getElementById("type_of_weather")
-let temperature=document.getElementById("temperature")
-let Windspeed=document.getElementById("Windspeed")
-let Humidity=document.getElementById("Humidity")
-let Clouds=document.getElementById("Clouds")
-
-
-    const apiKey = "f54c9746eeb575b169255821f07ad9a9";
-
-    let city="goa"
-    async function fetchapi() {
-        try {
-            let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
-            if (!data.ok) {
-                throw new Error(`HTTP error! status: ${data.status}`);
-            }
-
-            let result = await data.json();
-            console.log(result);
-            // console.log(result)
-        } catch (err) {
-            console.log("Error:", err);
-        }
-    }
-
-    // Call the async function
-    fetchapi();
-
-
