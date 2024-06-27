@@ -9,36 +9,40 @@
     
             <h1 class="text-3xl font-bold pt-3 text-orange-100 underline">Weather App</h1>
 
-
-        
-        <div class="flex flex-col items-center pt-5 ">
-            <div class="flex mb-5">
+            <div class="flex mb-5 mt-4 ">
                 <button class="border w-24 rounded p-1 font-semibold mr-5 hover:scale-105 transition-all " onclick="closeSearch()">My city </button>
-                <button  class="border rounded p-1 font-semibold ml-5 hover:scale-105 transition-all " onclick="openSearch()">Search City </button>
+                <button  class="border rounded p-2 font-semibold ml-5 hover:scale-105 transition-all " onclick="openSearch()">Search City </button>
             </div>
-            
-                <input type="text" placeholder=" Type city name" class="hidden rounded border text-black text-center p-1" id="searchbar">
+                <div class="flex items-center justify-center space-x-3" >
+                    <input type="text" placeholder=" Type city name" class="hidden scale-0 rounded border text-black text-center p-1 transform transition-all" id="searchbar">
+                    <div id="search_icon" class="hidden">
+                        <button class="fa-brands fa-searchengin fa-beat fa-xl" >
+                        </button>
+                    </div>
+                </div>
+                
+        <div class="hidden flex flex-col items-center " id="main_modal">
             
             <div class="mt-8 text-center text-xl font-semibold ">
                 <p id="city_name">City Name</p>
                 <p id="type_of_weather">Type of weather</p>
                 <p id="temperature" class="border mt-5 rounded">23.45 C</p>
             </div>
-            <div class="flex mt-5 space-x-4 ">
+            <div class=" flex mt-5 space-x-4 ">
                 <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
                     <i class="fa-solid fa-wind"></i>
                     <p>Windspeed</p>
-                    <p>5 m/s</p>
+                    <p id="Windspeed">5 m/s</p>
                 </div>
                 <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
                     <i class="fa-solid fa-droplet"></i>
                     <p>Humidity</p>
-                    <p>50%</p>
+                    <p id="Humidity">50%</p>
                 </div>
                 <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
                     <i class="fa-solid fa-cloud"></i>
                     <p>Clouds</p>
-                    <p>40%</p>
+                    <p id="Clouds">40%</p>
                 </div>
             </div>
         </div>
