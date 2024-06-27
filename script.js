@@ -4,6 +4,12 @@ function openModal(){
     main_modal.classList.remove("hidden");
     }
 }
+function closeModal(){
+    let main_modal=document.getElementById("main_modal")
+    if(!main_modal.classList.contains("hidden")){
+    main_modal.classList.add("hidden");
+    }
+}
 function openSearch(){
     let searchBar=document.getElementById("searchbar")
     let searchIcon=document.getElementById("search_icon")
@@ -50,10 +56,11 @@ function handleClick() {
     if (inputValue === "") {
         alert("Input value is empty!");
     } else {
-        openModal()
+       
         // Do something with the input value
         console.log(inputValue);
         fetchapi(inputValue)
+        //  openModal()
     }
 }
 
@@ -62,10 +69,11 @@ function handleKeyPress(event) {
         if (inputValue === "") {
             alert("Input value is empty!");
         } else {
-            openModal()
+            
             // Do something with the input value
             console.log(inputValue);
             fetchapi(inputValue)
+            
         }
     }
 }
@@ -79,7 +87,7 @@ input.addEventListener("keypress", handleKeyPress);
 
 
 const apiKey = "f54c9746eeb575b169255821f07ad9a9";
-let city="delhi"
+// let city="delhi"
 
 async function fetchapi(present_city) {
         try {
@@ -93,14 +101,16 @@ async function fetchapi(present_city) {
             console.log(result.main);
 
             renderData(result)
+            openModal()
             // console.log(result)
         } catch (err) {
+            closeModal()
             console.log("Error:", err);
         }
 }
 
     // Call the async function
-    fetchapi(city);
+    // fetchapi(city);
 
 function renderData(result){
     city_name.textContent=result.name;
@@ -108,7 +118,50 @@ function renderData(result){
     temperature.textContent=result.main.temp;
     Windspeed.textContent=result.wind.speed;
     Humidity.textContent=result.main.humidity;
-    Clouds.textContent=result.clouds.all;
+    Clouds.textContent=result.main.pressure;
+}
+
+document.getElementById('MyCity').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeather, showError);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+});
+
+async function fetchWeather(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        renderData(data);
+
+        console.log(data); // Log the data for debugging
+    } catch (error) {
+        console.error('Fetch error: ', error);
+    }
+}
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+    }
 }
 
 

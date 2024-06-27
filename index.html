@@ -10,7 +10,7 @@
             <h1 class="text-3xl font-bold pt-3 text-orange-100 underline underline-offset-8">Weather App</h1>
 
             <div class="flex mb-5 mt-4 ">
-                <button class="border w-24 rounded p-1 font-semibold mr-5 hover:scale-105 transition-all " onclick="closeSearch()">My city </button>
+                <button class="border w-24 rounded p-1 font-semibold mr-5 hover:scale-105 transition-all " onclick="closeSearch()" id="MyCity">My city </button>
                 <button  class="border rounded p-2 font-semibold ml-5 hover:scale-105 transition-all " onclick="openSearch()">Search City </button>
             </div>
                 <div class="flex items-center justify-center space-x-3" >
@@ -19,6 +19,9 @@
                         <button class="fa-brands fa-searchengin fa-xl" >
                         </button>
                     </div>
+                    
+
+
                 </div>
                 
         <div class="hidden flex flex-col items-center " id="main_modal">
@@ -41,8 +44,8 @@
                 </div>
                 <div class="p-2 w-24 flex flex-col items-center justify-center border rounded backdrop-blur bg-white/30 ">
                     <i class="fa-solid fa-cloud"></i>
-                    <p>Clouds</p>
-                    <p ><span id="Clouds">40</span>%</p>
+                    <p>Pressure</p>
+                    <p ><span id="Clouds">40</span> hPa</p>
                 </div>
             </div>
         </div>
