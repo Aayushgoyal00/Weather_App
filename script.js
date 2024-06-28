@@ -13,9 +13,14 @@ function closeModal(){
 function openSearch(){
     let searchBar=document.getElementById("searchbar")
     let searchIcon=document.getElementById("search_icon")
+    let error_para=document.getElementById("error_para")
     searchBar.classList.remove("hidden");
     searchIcon.classList.remove("hidden");
     
+    if(!error_para.classList.contains("hidden")){
+        error_para.classList.add("hidden")
+    }
+
     setTimeout(()=>{
         searchBar.classList.remove("scale-0");
         searchBar.classList.add("scale-100");
@@ -23,11 +28,8 @@ function openSearch(){
 }
 function closeSearch(){
     let searchBar=document.getElementById("searchbar")
-    let main_modal=document.getElementById("main_modal")
     let searchIcon=document.getElementById("search_icon")
-    if(main_modal.classList.contains("hidden")){
-    main_modal.classList.remove("hidden");
-    }
+    
     if(!searchBar.classList.contains("scale-0")){
         searchBar.classList.add("scale-0");
         setTimeout(()=>{searchBar.classList.add("hidden");
@@ -142,6 +144,10 @@ async function fetchWeather(position) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
+    if(!error_para.classList.contains("hidden")){
+        error_para.classList.add("hidden")
+    }
+
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
         if (!response.ok) {
@@ -150,7 +156,12 @@ async function fetchWeather(position) {
         const data = await response.json();
         renderData(data);
 
-        console.log(data); // Log the data for debugging
+        console.log(data); 
+        let main_modal=document.getElementById("main_modal")
+    
+    if(main_modal.classList.contains("hidden")){
+    main_modal.classList.remove("hidden");
+    }// Log the data for debugging
     } catch (error) {
         console.error('Fetch error: ', error);
         if(error_para.classList.contains("hidden")){
@@ -161,7 +172,13 @@ async function fetchWeather(position) {
     }
 }
 
-function showError(error) {
+ function showError(error) {
+     closeModal()
+            console.log("Error:", error);
+            if(error_para.classList.contains("hidden")){
+                error_para.classList.remove("hidden")
+            }
+            error_para.textContent=error
     switch (error.code) {
         case error.PERMISSION_DENIED:
             alert("User denied the request for Geolocation.");
