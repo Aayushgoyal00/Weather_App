@@ -2,6 +2,10 @@
 
 A simple and elegant Weather App that provides current weather information for a user's location or any searched city. The app uses the OpenWeatherMap API to fetch weather data.
 
+## Live Demo
+
+You can access the live demo of the project [here](https://aayushgoyal00.github.io/Weather_App/).
+
 ## Features
 
 - Get weather information for your current location.
